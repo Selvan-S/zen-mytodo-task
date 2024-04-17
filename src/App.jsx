@@ -50,7 +50,11 @@ function App() {
           </div>
         </div>
       </div>
-      <TodosCards todos={todos} filter={filter} setTodos={setTodos} />
+      {todos.length == 0 ? (
+        <h2 className="text-blue-600 text-center text-2xl">Add a new Todo !</h2>
+      ) : (
+        <TodosCards todos={todos} filter={filter} setTodos={setTodos} />
+      )}
     </div>
   );
 }

@@ -42,12 +42,13 @@ function TodoCard({ val, index, setTodos, todos }) {
     <div className="md:max-w-sm rounded overflow-hidden shadow-lg w-full">
       <div className="px-6 py-4">
         <div className="font-bold text-xl mb-2">{val.todoName}</div>
-        <p className="text-gray-700 text-base">
-          Description: {val.todoDescription}
+        <p className="text-base text-black">
+          <span className="text-gray-600">Description:</span>{" "}
+          {val.todoDescription}
         </p>
         <br />
         <div className="flex justify-start items-center gap-1">
-          <span>Status:</span>
+          <span className="text-gray-600">Status:</span>
           <div className="flex gap-x-4">
             <label
               htmlFor="list-view"
