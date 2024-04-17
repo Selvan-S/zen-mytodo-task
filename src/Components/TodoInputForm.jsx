@@ -22,8 +22,8 @@ function TodoInputForm({ setTodos }) {
       .then((res) => res.json())
       .then((data) => {
         setTodos((previewData) => [...previewData, data]);
-        console.log(data);
-      });
+      })
+      .catch((error) => console.log(error));
     setTodoName("");
     setTodoDescription("");
     setDisable(false);

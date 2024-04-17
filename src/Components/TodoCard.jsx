@@ -11,7 +11,6 @@ function TodoCard({ val, index, setTodos, todos }) {
     const selectedTodo = list[inx];
     const selectedTodoId = selectedTodo.id;
     selectedTodo.status = bool;
-    console.log(bool, inx, selectedTodo, selectedTodoId);
     setTodos(list);
     fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_URL}/${selectedTodoId}`, {
       method: "PUT",
@@ -19,11 +18,7 @@ function TodoCard({ val, index, setTodos, todos }) {
       headers: {
         "Content-Type": "application/json",
       },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-      });
+    }).catch((error) => console.log(error));
   }
 
   function deleteTodo(id) {
@@ -32,10 +27,10 @@ function TodoCard({ val, index, setTodos, todos }) {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         let filteredTodos = todos.filter((item) => item != val);
         setTodos([...filteredTodos]);
-      });
+      })
+      .catch((error) => console.log(error));
   }
 
   return (

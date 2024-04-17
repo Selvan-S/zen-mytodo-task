@@ -13,8 +13,8 @@ function App() {
       .then((res) => res.json())
       .then((data) => {
         setTodos(data);
-        console.log(data);
-      });
+      })
+      .catch((error) => console.log(error));
   }, []);
 
   return (

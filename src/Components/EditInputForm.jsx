@@ -13,7 +13,8 @@ function EditInputForm({ setTodos, index, todos, id, onClose }) {
       .then((data) => {
         setTodoName(data.todoName);
         setTodoDescription(data.todoDescription);
-      });
+      })
+      .catch((error) => console.log(error));
   }, []);
 
   function handleSubmit(e) {
@@ -33,7 +34,8 @@ function EditInputForm({ setTodos, index, todos, id, onClose }) {
       .then((res) => res.json())
       .then((data) => {
         updateTodos(data);
-      });
+      })
+      .catch((error) => console.log(error));
     setTodoName("");
     setTodoDescription("");
     setDisable(false);
