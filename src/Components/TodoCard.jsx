@@ -5,6 +5,8 @@ import EditModal from "./EditModal";
 function TodoCard({ val, index, setTodos, todos }) {
   const [isCompleted, setIsCompleted] = useState(val.status);
   const [showModal, setShowModal] = useState(false);
+  const [disable, setDisable] = useState(false);
+
   function changeComplete(bool, inx) {
     setIsCompleted(bool);
     const list = [...todos];
@@ -81,7 +83,11 @@ function TodoCard({ val, index, setTodos, todos }) {
           </button>
           <button
             className="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-3 border border-red-700 rounded"
-            onClick={() => deleteTodo(val.id)}
+            onClick={() => {
+              setDisable(true);
+              deleteTodo(val.id);
+            }}
+            disabled={disable}
           >
             Delete
           </button>

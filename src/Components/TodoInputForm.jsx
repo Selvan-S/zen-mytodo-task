@@ -4,6 +4,7 @@ function TodoInputForm({ setTodos }) {
   const [todoName, setTodoName] = useState("");
   const [todoDescription, setTodoDescription] = useState("");
   const [disable, setDisable] = useState(false);
+  const [erroMessage, setErroMessage] = useState(false);
   function handleSubmit(e) {
     e.preventDefault();
     setDisable(true);
@@ -12,21 +13,28 @@ function TodoInputForm({ setTodos }) {
       todoDescription,
       status: false,
     };
-    fetch(import.meta.env.VITE_REACT_APP_BACKEND_URL, {
-      method: "POST",
-      body: JSON.stringify(formData),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setTodos((previewData) => [...previewData, data]);
+    if (!todoName && !todoDescription) {
+      setErroMessage(true);
+      setDisable(false);
+    } else {
+      console.log(todoName, todoDescription);
+      setErroMessage(false);
+      fetch(import.meta.env.VITE_REACT_APP_BACKEND_URL, {
+        method: "POST",
+        body: JSON.stringify(formData),
+        headers: {
+          "Content-Type": "application/json",
+        },
       })
-      .catch((error) => console.log(error));
-    setTodoName("");
-    setTodoDescription("");
-    setDisable(false);
+        .then((res) => res.json())
+        .then((data) => {
+          setTodos((previewData) => [...previewData, data]);
+        })
+        .catch((error) => console.log(error));
+      setTodoName("");
+      setTodoDescription("");
+      setDisable(false);
+    }
   }
   return (
     <form className="w-full max-w-xl mx-auto mt-5" onSubmit={handleSubmit}>
@@ -45,6 +53,7 @@ function TodoInputForm({ setTodos }) {
             value={todoName}
             onChange={(e) => setTodoName(e.target.value)}
             placeholder="Todo Name"
+            required
           />
         </div>
         <div className="w-full md:w-2/5 px-3">
@@ -61,6 +70,7 @@ function TodoInputForm({ setTodos }) {
             value={todoDescription}
             onChange={(e) => setTodoDescription(e.target.value)}
             placeholder="Description"
+            required
           />
         </div>
         <button
@@ -70,6 +80,11 @@ function TodoInputForm({ setTodos }) {
         >
           Add Todo
         </button>
+        {erroMessage && (
+          <div className="text-rose-600 mx-auto mt-2">
+            Please fill Todo Name & Description
+          </div>
+        )}
       </div>
     </form>
   );
