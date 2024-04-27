@@ -17,7 +17,6 @@ function TodoInputForm({ setTodos }) {
       setErroMessage(true);
       setDisable(false);
     } else {
-      console.log(todoName, todoDescription);
       setErroMessage(false);
       fetch(import.meta.env.VITE_REACT_APP_BACKEND_URL, {
         method: "POST",
